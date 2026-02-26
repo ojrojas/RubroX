@@ -1,0 +1,31 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.DotSettings
+*.nupkg
+
+# Secrets
+.env
+**/appsettings.*.json
+!**/appsettings.json
+!**/appsettings.Development.json
+
+# Node / Angular
+node_modules/
+dist/
+.angular/
+
+# Test results
+TestResults/
+coverage/
+*.coveragexml
+
+# Docker
+.docker/
+
+# IDE
+.vscode/
+.idea/

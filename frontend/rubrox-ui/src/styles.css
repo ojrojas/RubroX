@@ -1,0 +1,59 @@
+/* RubroX Design System — Global Styles */
+@import './styles/tokens/colors.css';
+@import './styles/tokens/typography.css';
+@import './styles/tokens/spacing.css';
+
+/* Tailwind CSS */
+@import "tailwindcss";
+
+/* ===== Base Reset ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--color-text);
+  background-color: var(--color-bg-subtle);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* ===== Focus visible (Accesibilidad WCAG AA) ===== */
+:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ===== Scrollbars ===== */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-neutral-300); border-radius: var(--radius-full); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-neutral-400); }
+
+/* ===== Reducción de movimiento ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===== Utilidades presupuestales ===== */
+.text-disponible   { color: var(--color-disponible); }
+.text-comprometido { color: var(--color-comprometido); }
+.text-ejecutado    { color: var(--color-ejecutado); }
+.text-bloqueado    { color: var(--color-bloqueado); }
+
+.bg-disponible   { background-color: var(--color-disponible); }
+.bg-comprometido { background-color: var(--color-comprometido); }
+.bg-ejecutado    { background-color: var(--color-ejecutado); }

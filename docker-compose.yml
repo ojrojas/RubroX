@@ -1,0 +1,104 @@
+services:
+  # ============================================================
+  # PostgreSQL + pgvector
+  # ============================================================
+  postgres:
+    image: ankane/pgvector:latest
+    container_name: rubrox-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-rubrox}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Required}
+      POSTGRES_DB: rubrox
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infra/init-db.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-rubrox}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - rubrox-net
+
+  # ============================================================
+  # Identity Server (OpenIddict)
+  # ============================================================
+  identity:
+    build:
+      context: .
+      dockerfile: identity/RubroX.Identity/Dockerfile
+    container_name: rubrox-identity
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__IdentityConnection: "Host=postgres;Port=5432;Database=identity;Username=${POSTGRES_USER:-rubrox};Password=${POSTGRES_PASSWORD}"
+    ports:
+      - "5001:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - rubrox-net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  # ============================================================
+  # API (.NET Core 10)
+  # ============================================================
+  api:
+    build:
+      context: .
+      dockerfile: src/RubroX.API/Dockerfile
+    container_name: rubrox-api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__RubroXConnection: "Host=postgres;Port=5432;Database=rubrox;Username=${POSTGRES_USER:-rubrox};Password=${POSTGRES_PASSWORD}"
+      Auth__Authority: http://identity:8080
+      Auth__Audience: rubrox-api
+      Cors__AllowedOrigins: http://localhost:4200,http://frontend
+    ports:
+      - "5000:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      identity:
+        condition: service_healthy
+    networks:
+      - rubrox-net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  # ============================================================
+  # Angular SPA (served by Nginx)
+  # ============================================================
+  frontend:
+    build:
+      context: frontend/rubrox-ui
+      dockerfile: Dockerfile
+    container_name: rubrox-frontend
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      api:
+        condition: service_healthy
+    networks:
+      - rubrox-net
+
+volumes:
+  postgres_data:
+    name: rubrox-postgres-data
+
+networks:
+  rubrox-net:
+    name: rubrox-network
+    driver: bridge

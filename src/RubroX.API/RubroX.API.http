@@ -1,0 +1,6 @@
+@RubroX.API_HostAddress = http://localhost:5113
+
+GET {{RubroX.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

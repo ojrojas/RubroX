@@ -1,0 +1,74 @@
+/* ======================================================
+   TOKENS DE COLOR — RubroX Design System
+   Basado en: https://21st.dev design philosophy
+   ====================================================== */
+
+:root {
+  /* === Primary — Azul institucional === */
+  --color-primary-50:  #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;   /* ← Base primario */
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+
+  /* === Secondary — Verde presupuestal === */
+  --color-secondary-400: #4ade80;
+  --color-secondary-500: #22c55e;
+  --color-secondary-600: #16a34a;   /* ← Base secundario */
+  --color-secondary-700: #15803d;
+
+  /* === Semánticos === */
+  --color-success:   #16a34a;
+  --color-warning:   #d97706;
+  --color-error:     #dc2626;
+  --color-info:      #0891b2;
+
+  /* === Presupuestal específico (ÚNICO del sistema) === */
+  --color-disponible:   #16a34a;   /* Verde — saldo disponible */
+  --color-comprometido: #d97706;   /* Ámbar — CDP registrado */
+  --color-ejecutado:    #2563eb;   /* Azul  — CRP / Pago efectuado */
+  --color-bloqueado:    #dc2626;   /* Rojo  — rubro bloqueado */
+  --color-agotado:      #6b7280;   /* Gris  — sin saldo */
+
+  /* === Neutrales === */
+  --color-neutral-50:  #f9fafb;
+  --color-neutral-100: #f3f4f6;
+  --color-neutral-200: #e5e7eb;
+  --color-neutral-300: #d1d5db;
+  --color-neutral-400: #9ca3af;
+  --color-neutral-500: #6b7280;
+  --color-neutral-600: #4b5563;
+  --color-neutral-700: #374151;
+  --color-neutral-800: #1f2937;
+  --color-neutral-900: #111827;
+
+  /* === Surface === */
+  --color-bg:            #ffffff;
+  --color-bg-subtle:     #f9fafb;
+  --color-bg-muted:      #f3f4f6;
+  --color-border:        #e5e7eb;
+  --color-border-strong: #d1d5db;
+  --color-border-focus:  #2563eb;
+  --color-text:          #111827;
+  --color-text-muted:    #6b7280;
+  --color-text-subtle:   #9ca3af;
+}
+
+/* === Dark mode === */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg:            #0f172a;
+    --color-bg-subtle:     #1e293b;
+    --color-bg-muted:      #334155;
+    --color-border:        #334155;
+    --color-border-strong: #475569;
+    --color-text:          #f1f5f9;
+    --color-text-muted:    #94a3b8;
+    --color-text-subtle:   #64748b;
+  }
+}

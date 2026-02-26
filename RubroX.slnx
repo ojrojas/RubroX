@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/aspire/">
+    <Project Path="aspire/RubroX.AppHost/RubroX.AppHost.csproj" />
+  </Folder>
+  <Folder Name="/identity/">
+    <Project Path="identity/RubroX.Identity/RubroX.Identity.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/RubroX.API/RubroX.API.csproj" />
+    <Project Path="src/RubroX.Application/RubroX.Application.csproj" />
+    <Project Path="src/RubroX.Domain/RubroX.Domain.csproj" />
+    <Project Path="src/RubroX.Infrastructure/RubroX.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/RubroX.API.Tests/RubroX.API.Tests.csproj" />
+    <Project Path="tests/RubroX.Application.Tests/RubroX.Application.Tests.csproj" />
+    <Project Path="tests/RubroX.Domain.Tests/RubroX.Domain.Tests.csproj" />
+    <Project Path="tests/RubroX.Infrastructure.Tests/RubroX.Infrastructure.Tests.csproj" />
+  </Folder>
+</Solution>
